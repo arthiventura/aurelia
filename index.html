@@ -496,8 +496,8 @@ renderVals() {
   const defaultRequest = 'Hello,\n\nWe have guests, Mr and Mrs Laurent, who may join your ' + cruiseKind + ' sunset cruise this Sunday, 8 November. It is their 10th wedding anniversary. If they confirm, would you be able to offer a small touch on board, at your discretion, such as a handwritten card or a glass of champagne?\n\n' + (vis === 'surprise' ? 'Please keep it as a surprise: the guests do not know we are aware of the occasion. ' : 'The guests are happy for the occasion to be mentioned. ') + 'We will confirm their booking by Thursday at 18:00.\n\nIf there is room, a discount on the cruise would also work in your favour: it turns the occasion into a memorable experience that the guests will associate with your company, and it strengthens our partnership, with more guests sent your way in future.\n\nThank you,\nGuest Relations';
 
   const base = [
-    { id: 'A', name: 'Shared sunset cruise', price: '€700', pro: 'Within their usual budget', con: 'Shared with other guests', meta: 'No hold - subject to availability', photo: '/_blob/1c15ef9ede6ec6c61ad5e75ff0b6e524', alt: 'Guests on the deck of a shared wooden boat at sunset', isPick: false },
-    { id: 'B', name: 'Private sunset cruise', price: '€1,400', pro: 'Private, they asked', con: '€400 above their usual boat budget', meta: 'On hold until Thu 18:00', photo: '/_blob/b04b38f9152544600cc2986bc242c3db', alt: 'A couple on the deck of a private yacht at sunset', isPick: true }
+    { id: 'A', name: 'Shared sunset cruise', price: '€700', pro: 'Within their usual budget', con: 'Shared with other guests', meta: 'No hold - subject to availability', photo: '1c15ef9ede6ec6c61ad5e75ff0b6e524.jpg', alt: 'Guests on the deck of a shared wooden boat at sunset', isPick: false },
+    { id: 'B', name: 'Private sunset cruise', price: '€1,400', pro: 'Private, they asked', con: '€400 above their usual boat budget', meta: 'On hold until Thu 18:00', photo: 'b04b38f9152544600cc2986bc242c3db.jpg', alt: 'A couple on the deck of a private yacht at sunset', isPick: true }
   ];
   const options = base.map((o) => {
     const on = o.id === picked;
