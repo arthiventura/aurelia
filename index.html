@@ -28,6 +28,7 @@ a{color:#B48E3C}a:hover{color:#8B6A1F}
 .btn-navy{background:#1B2334 !important;transition:background .15s ease}
 .btn-navy:hover{background:#3A4660 !important}
 .btn-navy:active{background:#070C19 !important}
+.msg-link{color:#1F4E8C;text-decoration:none;text-underline-offset:4px}.msg-link:hover{text-decoration:underline}
 .item-link{color:#1B2333;text-decoration:none;text-underline-offset:4px}.item-link:hover{color:#1B2333;text-decoration:underline}
 .nav-link{transition:color .15s ease}.nav-link:hover{color:#1B2333}
 .row-toggle:hover{color:#1B2333}
@@ -83,14 +84,14 @@ Guests</a>
 <h1 style="margin: 16px 0 0; font-family: 'Inria Serif', Georgia, serif; font-weight: 400; font-size: 36px; line-height: 44px; letter-spacing: -0.02em; white-space: nowrap; color: #1B2333">Good morning, John.<br>{{onTrack}} of 40 guests are on track — {{needPhrase}} today.</h1>
 
 <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; font-size: 14px">
-<sc-if value="{{actOpen}}" hint-placeholder-val="{{ true }}"><span style="height: 32px; box-sizing: border-box; padding: 0 24px; border-radius: 16px; background: #DC4B47; color: #FFFFFF; font-weight: 600; display: flex; align-items: center; box-shadow: 0 4px 12px rgba(220, 75, 71, 0.35)">1 Act Now!</span></sc-if>
-<sc-if value="{{actClear}}" hint-placeholder-val="{{ false }}"><span style="height: 32px; box-sizing: border-box; padding: 0 24px; border-radius: 16px; border: 1px solid #DDE1E8; color: #4A5262; display: flex; align-items: center; gap: 8px">0 Act Now</span></sc-if>
-<span style="height: 32px; box-sizing: border-box; padding: 0 24px; border-radius: 16px; border: 1px solid #DDE1E8; color: #4A5262; display: flex; align-items: center; gap: 4px">{{todayCount}} Today</span>
-<span style="height: 32px; box-sizing: border-box; padding: 0 24px; border-radius: 16px; border: 1px solid #DDE1E8; color: #4A5262; display: flex; align-items: center; gap: 4px">{{waitingCount}} Waiting on others</span>
-<span style="height: 32px; box-sizing: border-box; padding: 0 24px; border-radius: 16px; border: 1px solid #DDE1E8; color: #4A5262; display: flex; align-items: center; gap: 4px">{{handledCount}} Handled overnight</span>
+<sc-if value="{{actOpen}}" hint-placeholder-val="{{ true }}"><button type="button" aria-pressed="{{pActChecked}}" onClick="{{pickAct}}" style="height: 32px; box-sizing: border-box; padding: 0 24px; border-radius: 16px; border: 0; background: #DC4B47; color: #FFFFFF; font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; box-shadow: {{pActShadow}}">1 Act Now!</button></sc-if>
+<sc-if value="{{actClear}}" hint-placeholder-val="{{ false }}"><button type="button" class="pill-tog" role="checkbox" aria-checked="{{pActChecked}}" onClick="{{pickAct}}" style="height: 32px; box-sizing: border-box; padding: 0 24px; border-radius: 16px; font: inherit; font-size: 14px; cursor: pointer; border: 1px solid {{pActBorder}}; background: {{pActBg}}; color: {{pActColor}}; font-weight: {{pActWeight}}; display: flex; align-items: center; gap: 4px">0 Act Now</button></sc-if>
+<button type="button" class="pill-tog" role="checkbox" aria-checked="{{pTodayChecked}}" onClick="{{pickToday}}" style="height: 32px; box-sizing: border-box; padding: 0 24px; border-radius: 16px; font: inherit; font-size: 14px; cursor: pointer; border: 1px solid {{pTodayBorder}}; background: {{pTodayBg}}; color: {{pTodayColor}}; font-weight: {{pTodayWeight}}; display: flex; align-items: center; gap: 4px">{{todayCount}} Today</button>
+<button type="button" class="pill-tog" role="checkbox" aria-checked="{{pWaitChecked}}" onClick="{{pickWait}}" style="height: 32px; box-sizing: border-box; padding: 0 24px; border-radius: 16px; font: inherit; font-size: 14px; cursor: pointer; border: 1px solid {{pWaitBorder}}; background: {{pWaitBg}}; color: {{pWaitColor}}; font-weight: {{pWaitWeight}}; display: flex; align-items: center; gap: 4px">{{waitingCount}} Waiting on others</button>
+<button type="button" class="pill-tog" role="checkbox" aria-checked="{{pOverChecked}}" onClick="{{pickOver}}" style="height: 32px; box-sizing: border-box; padding: 0 24px; border-radius: 16px; font: inherit; font-size: 14px; cursor: pointer; border: 1px solid {{pOverBorder}}; background: {{pOverBg}}; color: {{pOverColor}}; font-weight: {{pOverWeight}}; display: flex; align-items: center; gap: 4px">{{handledCount}} Handled overnight</button><sc-if value="{{showYouPill}}" hint-placeholder-val="{{ false }}"><button type="button" class="pill-tog" role="checkbox" aria-checked="{{pYouChecked}}" onClick="{{pickYou}}" style="height: 32px; box-sizing: border-box; padding: 0 24px; border-radius: 16px; font: inherit; font-size: 14px; cursor: pointer; border: 1px solid {{pYouBorder}}; background: {{pYouBg}}; color: {{pYouColor}}; font-weight: {{pYouWeight}}; display: flex; align-items: center; gap: 4px">{{youCount}} Handled by you</button></sc-if>
 </div>
 
-<h2 style="margin: 52px 0 12px; font-size: 16px; line-height: 20px; letter-spacing: 0.08em; color: {{actLabelColor}}; font-weight: 600">ACT NOW</h2>
+<sc-if value="{{showActSec}}" hint-placeholder-val="{{ true }}"><h2 style="margin: 52px 0 12px; font-size: 16px; line-height: 20px; letter-spacing: 0.08em; color: {{actLabelColor}}; font-weight: 600">ACT NOW</h2>
 <sc-if value="{{actOpen}}" hint-placeholder-val="{{ true }}">
 <article style="background: #FFFFFF; border: 1px solid #E3E6EC; border-radius: 16px; padding: 22px 26px 16px; box-shadow: 0 12px 40px rgba(196, 160, 90, 0.22); display: flex; flex-direction: column">
 <div style="display: flex; align-items: baseline; gap: 18px">
@@ -122,7 +123,8 @@ Hold expires Thu 18:00 · 2d 9h</span>
 </article>
 </sc-if>
 
-<h2 style="margin: 44px 0 12px; font-size: 14px; line-height: 18px; letter-spacing: 0.06em; color: #4A5262; font-weight: 600">TODAY</h2>
+</sc-if>
+<sc-if value="{{showTodaySec}}" hint-placeholder-val="{{ true }}"><h2 style="margin: 44px 0 12px; font-size: 14px; line-height: 18px; letter-spacing: 0.06em; color: #4A5262; font-weight: 600">TODAY</h2>
 <div style="display: flex; flex-direction: column; gap: 14px">
 
 <sc-if value="{{showOkafor}}" hint-placeholder-val="{{ true }}">
@@ -152,12 +154,14 @@ Hold expires Thu 18:00 · 2d 9h</span>
 </article>
 </div>
 
+</sc-if>
 <div style="margin-top: 26px; display: flex; flex-direction: column; font-size: 16px; color: #4A5262; margin-bottom: 24px">
-<button type="button" class="row-toggle" onClick="{{toggleWait}}" style="height: 50px; padding: 0; border: 0; border-bottom: 1px solid #E3E6EC; background: transparent; font: inherit; color: inherit; display: flex; align-items: center; justify-content: space-between; cursor: pointer"><span>Waiting on others · {{waitingCount}}</span>
+<sc-if value="{{showWaitRow}}" hint-placeholder-val="{{ true }}"><button type="button" class="row-toggle" onClick="{{toggleWait}}" style="height: 50px; padding: 0; border: 0; border-bottom: 1px solid #E3E6EC; background: transparent; font: inherit; color: inherit; display: flex; align-items: center; justify-content: space-between; cursor: pointer"><span>Waiting on others · {{waitingCount}}</span>
 <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1B2333" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg></button>
-<sc-if value="{{waitExpanded}}" hint-placeholder-val="{{ false }}"><div id="wait-list" style="display: flex; flex-direction: column; padding: 8px 0 16px"><sc-if value="{{showSunsetItem}}" hint-placeholder-val="{{ false }}"><div style="padding: 16px 0; border-bottom: 1px solid #EEF0F3; display: flex; flex-direction: column; gap: 4px"><a href="#" class="item-link" onClick="{{goDetail}}" style="font-size: 16px; font-weight: 600; align-self: flex-start">Sunset cruise · anniversary gesture</a><span style="font-size: 14px; color: #4A5262">Mr &amp; Mrs Laurent · Suite 1204</span><span style="font-size: 14px; color: #6E7585; display: flex; align-items: center; gap: 8px">Sun 8 Nov · <span style="height: 24px; box-sizing: border-box; padding: 0 8px; border: 1px solid #F2C94C; border-radius: 4px; background: #FFF7D6; color: #6B5200; font-size: 12px; font-weight: 400; display: flex; align-items: center; white-space: nowrap">Awaiting cruise supplier, reply due Thu 18:00</span></span></div></sc-if><sc-if value="{{showBianchiItem}}" hint-placeholder-val="{{ false }}"><div style="padding: 16px 0; border-bottom: 1px solid #EEF0F3; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 16px; font-weight: 600; color: #1B2333">Allergy details</span><span style="font-size: 14px; color: #4A5262">Mr Bianchi · Suite 1511</span><span style="font-size: 14px; color: #6E7585; display: flex; align-items: center; gap: 8px">Due Wed 12:00 · <span style="height: 24px; box-sizing: border-box; padding: 0 8px; border: 1px solid #F2C94C; border-radius: 4px; background: #FFF7D6; color: #6B5200; font-size: 12px; font-weight: 400; display: flex; align-items: center; white-space: nowrap">Awaiting guest reply</span></span></div></sc-if><sc-if value="{{showChoiceItem}}" hint-placeholder-val="{{ false }}"><div style="padding: 16px 0; border-bottom: 1px solid #EEF0F3; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 16px; color: #1B2333; font-weight: 600">Cruise choice</span><span style="font-size: 14px; color: #4A5262">Mr &amp; Mrs Laurent · Suite 1204</span><span style="font-size: 14px; color: #6E7585; display: flex; align-items: center; gap: 8px">Sent 09:14 · <span style="height: 24px; box-sizing: border-box; padding: 0 8px; border: 1px solid #F2C94C; border-radius: 4px; background: #FFF7D6; color: #6B5200; font-size: 12px; font-weight: 400; display: flex; align-items: center; white-space: nowrap">Awaiting guest reply</span></span></div></sc-if><div style="padding: 16px 0; border-bottom: 1px solid #EEF0F3; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 16px; color: #1B2333; font-weight: 600">Spa treatment</span><span style="font-size: 14px; color: #4A5262">Ms. Elena Rossi · Suite 611</span><span style="font-size: 14px; color: #6E7585; display: flex; align-items: center; gap: 8px">Sat 7 Nov · <span style="height: 24px; box-sizing: border-box; padding: 0 8px; border: 1px solid #F2C94C; border-radius: 4px; background: #FFF7D6; color: #6B5200; font-size: 12px; font-weight: 400; display: flex; align-items: center; white-space: nowrap">No slot confirmed yet</span></span></div><div style="padding: 16px 0; border-bottom: 1px solid #EEF0F3; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 16px; color: #1B2333; font-weight: 600">Saturday dinner</span><span style="font-size: 14px; color: #4A5262">Dr. Haruka Mori · Suite 1507</span><span style="font-size: 14px; color: #6E7585; display: flex; align-items: center; gap: 8px">Sat 7 Nov · <span style="height: 24px; box-sizing: border-box; padding: 0 8px; border: 1px solid #F2C94C; border-radius: 4px; background: #FFF7D6; color: #6B5200; font-size: 12px; font-weight: 400; display: flex; align-items: center; white-space: nowrap">Restaurant pending</span></span></div><div style="padding: 16px 0; border-bottom: 1px solid #EEF0F3; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 16px; color: #1B2333; font-weight: 600">Spa treatment</span><span style="font-size: 14px; color: #4A5262">Mr &amp; Mrs Okafor · Suite 802</span><span style="font-size: 14px; color: #6E7585; display: flex; align-items: center; gap: 8px">Sat 7 Nov · <span style="height: 24px; box-sizing: border-box; padding: 0 8px; border: 1px solid #F2C94C; border-radius: 4px; background: #FFF7D6; color: #6B5200; font-size: 12px; font-weight: 400; display: flex; align-items: center; white-space: nowrap">Awaiting spa reply</span></span></div><span style="padding: 12px 0; font-size: 14px; color: #6E7585">+ more in the list</span></div></sc-if>
-<button type="button" class="row-toggle" onClick="{{toggleHandled}}" style="height: 50px; padding: 0; border: 0; border-bottom: 1px solid #E3E6EC; background: transparent; font: inherit; color: inherit; display: flex; align-items: center; justify-content: space-between; cursor: pointer"><span>Handled by Aurelia overnight · {{handledCount}}</span>
-<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1B2333" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg></button><sc-if value="{{handledExpanded}}" hint-placeholder-val="{{ false }}"><div id="handled-list" style="display: flex; flex-direction: column; padding: 8px 0 16px"><sc-if value="{{showGestureDone}}" hint-placeholder-val="{{ false }}"><div style="padding: 16px 0; border-bottom: 1px solid #EEF0F3; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 16px; color: #1B2333; font-weight: 600">Sunset gesture approved</span><span style="font-size: 14px; color: #4A5262">Mr &amp; Mrs Laurent · Suite 1204</span><span style="font-size: 14px; color: #6E7585; display: flex; align-items: center; gap: 8px">Sun 8 Nov · <span style="height: 24px; box-sizing: border-box; padding: 0 8px; border: 1px solid #2E9A63; border-radius: 4px; background: #EEF7F2; color: #145A3C; font-size: 12px; font-weight: 400; display: flex; align-items: center; white-space: nowrap">Approved by the operator</span></span></div></sc-if><div style="padding: 16px 0; border-bottom: 1px solid #EEF0F3; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 16px; color: #1B2333; font-weight: 600">Airport transfer</span><span style="font-size: 14px; color: #4A5262">Mr &amp; Mrs Laurent · Suite 1204</span><span style="font-size: 14px; color: #6E7585; display: flex; align-items: center; gap: 8px">Fri 6 Nov · <span style="height: 24px; box-sizing: border-box; padding: 0 8px; border: 1px solid #2E9A63; border-radius: 4px; background: #EEF7F2; color: #145A3C; font-size: 12px; font-weight: 400; display: flex; align-items: center; white-space: nowrap">Driver confirmed for 14:30</span></span></div><div style="padding: 16px 0; border-bottom: 1px solid #EEF0F3; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 16px; color: #1B2333; font-weight: 600">Champagne in suite</span><span style="font-size: 14px; color: #4A5262">Mr &amp; Mrs Okafor · Suite 802</span><span style="font-size: 14px; color: #6E7585; display: flex; align-items: center; gap: 8px">Fri 6 Nov · <span style="height: 24px; box-sizing: border-box; padding: 0 8px; border: 1px solid #2E9A63; border-radius: 4px; background: #EEF7F2; color: #145A3C; font-size: 12px; font-weight: 400; display: flex; align-items: center; white-space: nowrap">Order confirmed</span></span></div><div style="padding: 16px 0; border-bottom: 1px solid #EEF0F3; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 16px; color: #1B2333; font-weight: 600">Late checkout</span><span style="font-size: 14px; color: #4A5262">Dr. Haruka Mori · Suite 1507</span><span style="font-size: 14px; color: #6E7585; display: flex; align-items: center; gap: 8px">Sun 8 Nov · <span style="height: 24px; box-sizing: border-box; padding: 0 8px; border: 1px solid #2E9A63; border-radius: 4px; background: #EEF7F2; color: #145A3C; font-size: 12px; font-weight: 400; display: flex; align-items: center; white-space: nowrap">Approved within house policy</span></span></div><div style="padding: 16px 0; border-bottom: 1px solid #EEF0F3; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 16px; color: #1B2333; font-weight: 600">Room preferences</span><span style="font-size: 14px; color: #4A5262">Ms. Elena Rossi · Suite 611</span><span style="font-size: 14px; color: #6E7585; display: flex; align-items: center; gap: 8px">Quiet floor, extra pillows · <span style="height: 24px; box-sizing: border-box; padding: 0 8px; border: 1px solid #8FB3E8; border-radius: 4px; background: #EAF1FB; color: #1F4E8C; font-size: 12px; font-weight: 400; display: flex; align-items: center; white-space: nowrap">Added to profile</span></span></div><span style="padding: 12px 0; font-size: 14px; color: #6E7585; padding-bottom: 0px">+ more in the list</span></div></sc-if>
+<sc-if value="{{waitExpanded}}" hint-placeholder-val="{{ false }}"><div id="wait-list" style="display: flex; flex-direction: column; padding: 8px 0 16px"><sc-if value="{{showSunsetItem}}" hint-placeholder-val="{{ false }}"><div style="padding: 16px 0; border-bottom: 1px solid #EEF0F3; display: flex; flex-direction: column; gap: 4px"><a href="#" class="item-link" onClick="{{goDetail}}" style="font-size: 16px; font-weight: 600; align-self: flex-start">Sunset cruise · anniversary gesture</a><span style="font-size: 14px; color: #4A5262">Mr &amp; Mrs Laurent · Suite 1204</span><span style="font-size: 14px; color: #6E7585; display: flex; align-items: center; gap: 8px">Sun 8 Nov · <span style="height: 24px; box-sizing: border-box; padding: 0 8px; border: 1px solid #F2C94C; border-radius: 4px; background: #FFF7D6; color: #6B5200; font-size: 12px; font-weight: 400; display: flex; align-items: center; white-space: nowrap">Awaiting cruise supplier, reply due Thu 18:00</span></span></div></sc-if><sc-if value="{{showBianchiItem}}" hint-placeholder-val="{{ false }}"><div style="padding: 16px 0; border-bottom: 1px solid #EEF0F3; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 16px; font-weight: 600; color: #1B2333">Allergy details</span><span style="font-size: 14px; color: #4A5262">Mr Bianchi · Suite 1511</span><span style="font-size: 14px; color: #6E7585; display: flex; align-items: center; gap: 8px">Due Wed 12:00 · <span style="height: 24px; box-sizing: border-box; padding: 0 8px; border: 1px solid #F2C94C; border-radius: 4px; background: #FFF7D6; color: #6B5200; font-size: 12px; font-weight: 400; display: flex; align-items: center; white-space: nowrap">Awaiting guest reply</span></span></div></sc-if><sc-if value="{{showChoiceItem}}" hint-placeholder-val="{{ false }}"><div style="padding: 16px 0; border-bottom: 1px solid #EEF0F3; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 16px; color: #1B2333; font-weight: 600">Cruise choice</span><span style="font-size: 14px; color: #4A5262">Mr &amp; Mrs Laurent · Suite 1204</span><span style="font-size: 14px; color: #6E7585; display: flex; align-items: center; gap: 8px">Sent 09:14 · <span style="height: 24px; box-sizing: border-box; padding: 0 8px; border: 1px solid #F2C94C; border-radius: 4px; background: #FFF7D6; color: #6B5200; font-size: 12px; font-weight: 400; display: flex; align-items: center; white-space: nowrap">Awaiting guest reply</span></span></div></sc-if><div style="padding: 16px 0; border-bottom: 1px solid #EEF0F3; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 16px; color: #1B2333; font-weight: 600">Spa treatment</span><span style="font-size: 14px; color: #4A5262">Ms. Elena Rossi · Suite 611</span><span style="font-size: 14px; color: #6E7585; display: flex; align-items: center; gap: 8px">Sat 7 Nov · <span style="height: 24px; box-sizing: border-box; padding: 0 8px; border: 1px solid #F2C94C; border-radius: 4px; background: #FFF7D6; color: #6B5200; font-size: 12px; font-weight: 400; display: flex; align-items: center; white-space: nowrap">No slot confirmed yet</span></span></div><div style="padding: 16px 0; border-bottom: 1px solid #EEF0F3; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 16px; color: #1B2333; font-weight: 600">Saturday dinner</span><span style="font-size: 14px; color: #4A5262">Dr. Haruka Mori · Suite 1507</span><span style="font-size: 14px; color: #6E7585; display: flex; align-items: center; gap: 8px">Sat 7 Nov · <span style="height: 24px; box-sizing: border-box; padding: 0 8px; border: 1px solid #F2C94C; border-radius: 4px; background: #FFF7D6; color: #6B5200; font-size: 12px; font-weight: 400; display: flex; align-items: center; white-space: nowrap">Restaurant pending</span></span></div><div style="padding: 16px 0; border-bottom: 1px solid #EEF0F3; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 16px; color: #1B2333; font-weight: 600">Spa treatment</span><span style="font-size: 14px; color: #4A5262">Mr &amp; Mrs Okafor · Suite 802</span><span style="font-size: 14px; color: #6E7585; display: flex; align-items: center; gap: 8px">Sat 7 Nov · <span style="height: 24px; box-sizing: border-box; padding: 0 8px; border: 1px solid #F2C94C; border-radius: 4px; background: #FFF7D6; color: #6B5200; font-size: 12px; font-weight: 400; display: flex; align-items: center; white-space: nowrap">Awaiting spa reply</span></span></div><span style="padding: 12px 0; font-size: 14px; color: #6E7585">+ more in the list</span></div></sc-if></sc-if>
+<sc-if value="{{showHandledRow}}" hint-placeholder-val="{{ true }}"><button type="button" class="row-toggle" onClick="{{toggleHandled}}" style="height: 50px; padding: 0; border: 0; border-bottom: 1px solid #E3E6EC; background: transparent; font: inherit; color: inherit; display: flex; align-items: center; justify-content: space-between; cursor: pointer"><span>Handled by Aurelia overnight · {{handledCount}}</span>
+<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1B2333" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg></button><sc-if value="{{handledExpanded}}" hint-placeholder-val="{{ false }}"><div id="handled-list" style="display: flex; flex-direction: column; padding: 8px 0 16px"><sc-if value="{{showGestureDone}}" hint-placeholder-val="{{ false }}"><div style="padding: 16px 0; border-bottom: 1px solid #EEF0F3; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 16px; color: #1B2333; font-weight: 600">Sunset gesture approved</span><span style="font-size: 14px; color: #4A5262">Mr &amp; Mrs Laurent · Suite 1204</span><span style="font-size: 14px; color: #6E7585; display: flex; align-items: center; gap: 8px">Sun 8 Nov · <span style="height: 24px; box-sizing: border-box; padding: 0 8px; border: 1px solid #2E9A63; border-radius: 4px; background: #EEF7F2; color: #145A3C; font-size: 12px; font-weight: 400; display: flex; align-items: center; white-space: nowrap">Approved by the operator</span></span></div></sc-if><div style="padding: 16px 0; border-bottom: 1px solid #EEF0F3; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 16px; color: #1B2333; font-weight: 600">Airport transfer</span><span style="font-size: 14px; color: #4A5262">Mr &amp; Mrs Laurent · Suite 1204</span><span style="font-size: 14px; color: #6E7585; display: flex; align-items: center; gap: 8px">Fri 6 Nov · <span style="height: 24px; box-sizing: border-box; padding: 0 8px; border: 1px solid #2E9A63; border-radius: 4px; background: #EEF7F2; color: #145A3C; font-size: 12px; font-weight: 400; display: flex; align-items: center; white-space: nowrap">Driver confirmed for 14:30</span></span></div><div style="padding: 16px 0; border-bottom: 1px solid #EEF0F3; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 16px; color: #1B2333; font-weight: 600">Champagne in suite</span><span style="font-size: 14px; color: #4A5262">Mr &amp; Mrs Okafor · Suite 802</span><span style="font-size: 14px; color: #6E7585; display: flex; align-items: center; gap: 8px">Fri 6 Nov · <span style="height: 24px; box-sizing: border-box; padding: 0 8px; border: 1px solid #2E9A63; border-radius: 4px; background: #EEF7F2; color: #145A3C; font-size: 12px; font-weight: 400; display: flex; align-items: center; white-space: nowrap">Order confirmed</span></span></div><div style="padding: 16px 0; border-bottom: 1px solid #EEF0F3; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 16px; color: #1B2333; font-weight: 600">Late checkout</span><span style="font-size: 14px; color: #4A5262">Dr. Haruka Mori · Suite 1507</span><span style="font-size: 14px; color: #6E7585; display: flex; align-items: center; gap: 8px">Sun 8 Nov · <span style="height: 24px; box-sizing: border-box; padding: 0 8px; border: 1px solid #2E9A63; border-radius: 4px; background: #EEF7F2; color: #145A3C; font-size: 12px; font-weight: 400; display: flex; align-items: center; white-space: nowrap">Approved within house policy</span></span></div><div style="padding: 16px 0; border-bottom: 1px solid #EEF0F3; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 16px; color: #1B2333; font-weight: 600">Room preferences</span><span style="font-size: 14px; color: #4A5262">Ms. Elena Rossi · Suite 611</span><span style="font-size: 14px; color: #6E7585; display: flex; align-items: center; gap: 8px">Quiet floor, extra pillows · <span style="height: 24px; box-sizing: border-box; padding: 0 8px; border: 1px solid #8FB3E8; border-radius: 4px; background: #EAF1FB; color: #1F4E8C; font-size: 12px; font-weight: 400; display: flex; align-items: center; white-space: nowrap">Added to profile</span></span></div><span style="padding: 12px 0; font-size: 14px; color: #6E7585; padding-bottom: 0px">+ more in the list</span></div></sc-if></sc-if><sc-if value="{{showYouRow}}" hint-placeholder-val="{{ false }}"><button type="button" class="row-toggle" onClick="{{toggleYou}}" style="height: 50px; padding: 0; border: 0; border-bottom: 1px solid #E3E6EC; background: transparent; font: inherit; color: inherit; display: flex; align-items: center; justify-content: space-between; cursor: pointer"><span>Handled by you · {{youCount}}</span>
+<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1B2333" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg></button><sc-if value="{{youExpanded}}" hint-placeholder-val="{{ false }}"><div id="you-list" style="display: flex; flex-direction: column; padding: 8px 0 16px"><sc-for list="{{youItems}}" as="it" hint-placeholder-count="2"><div style="padding: 16px 0; border-bottom: 1px solid #EEF0F3; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 16px; color: #1B2333; font-weight: 600">{{it.title}}</span><span style="font-size: 14px; color: #4A5262">{{it.guest}}</span><span style="font-size: 14px; color: #6E7585; display: flex; align-items: center; gap: 8px">{{it.when}} · <span style="height: 24px; box-sizing: border-box; padding: 0 8px; border: 1px solid {{it.bd}}; border-radius: 4px; background: {{it.bg}}; color: {{it.fg}}; font-size: 12px; font-weight: 400; display: flex; align-items: center; white-space: nowrap">{{it.badge}}</span></span></div></sc-for></div></sc-if></sc-if>
 
 </div>
 
@@ -296,6 +300,7 @@ Hold expires Thu 18:00 · 2d 9h</span>
 <svg aria-hidden="true" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6z"></path><path d="M9 12l2 2 4-4"></path></svg>
 <span style="font-size: 14px">Contact Verified . WhatsApp</span></span>
 <span style="margin-top: 6px; font-size: 14px; color: #4A5262">Guest · can approve bookings and payments</span>
+<button type="button" class="msg-link" onClick="{{openOriginal}}" style="margin-top: 8px; padding: 0; border: 0; background: transparent; font: inherit; font-size: 14px; cursor: pointer; align-self: flex-start; display: inline-flex; align-items: center; gap: 6px"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L3 21l1.9-6.4A8 8 0 1 1 21 12z"></path></svg><span>See guest’s last messages</span></button>
 <div style="margin-top: 24px; border-top: 1px solid #E3E6EC"></div><button type="button" class="row-toggle" onClick="{{togglePa}}" aria-expanded="{{paOpen}}" style="width: 100%; height: 40px; padding: 0; border: 0; background: transparent; font: inherit; font-size: 14px; letter-spacing: 0.06em; color: #6E7585; font-weight: 500; display: flex; align-items: center; justify-content: space-between; cursor: pointer"><span>PERSONAL ASSISTANT · {{paCount}}</span><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1B2333" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; transform: rotate({{paRot}}); transition: transform .2s ease"><path d="M6 9l6 6 6-6"></path></svg></button><sc-if value="{{paOpen}}" hint-placeholder-val="{{ false }}"><div style="max-height: 176px; overflow-y: auto; scrollbar-width: thin; padding: 8px 8px 8px 0; display: flex; flex-direction: column"><span style="font-size: 16px; font-weight: 600; color: rgb(27, 35, 51)">Jane</span><span style="margin-top: 6px; font-size: 14px; color: rgb(74, 82, 98)">Email domain matches <br>Can request bookings up to €1,000<br>Cannot approve payments above €1,000</span></div></sc-if>
 <div style="margin-top: 8px; border-top: 1px solid #E3E6EC"></div><button type="button" class="row-toggle" onClick="{{togglePrefs}}" aria-expanded="{{prefsOpen}}" style="width: 100%; height: 40px; padding: 0; border: 0; background: transparent; font: inherit; font-size: 14px; letter-spacing: 0.06em; color: #6E7585; font-weight: 500; display: flex; align-items: center; justify-content: space-between; cursor: pointer"><span>KNOWN PREFERENCES · {{prefsCount}}</span><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1B2333" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; transform: rotate({{prefsRot}}); transition: transform .2s ease"><path d="M6 9l6 6 6-6"></path></svg></button><sc-if value="{{prefsOpen}}" hint-placeholder-val="{{ false }}"><div style="max-height: 176px; overflow-y: auto; scrollbar-width: thin; padding: 8px 8px 8px 0; display: flex; flex-direction: column; font-size: 16px; line-height: 22px; color: #4A5262"><sc-for list="{{prefs}}" as="p" hint-placeholder-count="7"><span>{{p}}</span></sc-for></div></sc-if>
 <sc-if value="{{anniversary}}" hint-placeholder-val="{{ false }}"><div style="margin-top: 8px; border-top: 1px solid #E3E6EC"></div><button type="button" class="row-toggle" onClick="{{toggleAdded}}" aria-expanded="{{addedOpen}}" style="width: 100%; height: 40px; padding: 0; border: 0; background: transparent; font: inherit; font-size: 14px; letter-spacing: 0.06em; color: #6E7585; font-weight: 500; display: flex; align-items: center; justify-content: space-between; cursor: pointer"><span>ADDED BY YOU · {{addedCount}}</span><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1B2333" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; transform: rotate({{addedRot}}); transition: transform .2s ease"><path d="M6 9l6 6 6-6"></path></svg></button><sc-if value="{{addedOpen}}" hint-placeholder-val="{{ false }}"><div style="max-height: 176px; overflow-y: auto; scrollbar-width: thin; padding: 8px 8px 8px 0; display: flex; flex-direction: column"><span style="font-size: 16px; color: #1B2333">Wedding Anniversary - Sun, 8 Nov</span><span style="margin-top: 2px; font-size: 14px; font-style: italic; color: #6E7585">{{addedNote}}</span></div></sc-if></sc-if>
@@ -310,7 +315,7 @@ Hold expires Thu 18:00 · 2d 9h</span>
 </div>
 <div role="radiogroup" aria-label="Who can see this" style="margin-top: 16px; display: flex; gap: 16px">
 <sc-for list="{{visibility}}" as="v" hint-placeholder-count="2">
-<button type="button" role="radio" aria-checked="{{v.checked}}" class="pill-tog" onClick="{{v.pick}}" style="flex: 1 1 0; padding: 0 12px; white-space: nowrap; border-radius: 16px; font: inherit; font-size: 14px; cursor: pointer; border: 1px solid {{v.border}}; background: {{v.bg}}; color: {{v.color}}; font-weight: {{v.weight}}; padding-bottom: 8px; padding-top: 8px">{{v.label}}</button>
+<button type="button" role="radio" aria-checked="{{v.checked}}" class="pill-tog" onClick="{{v.pick}}" style="flex: 1 1 0; padding: 0 12px; white-space: nowrap; border-radius: 16px; font: inherit; font-size: 14px; cursor: {{v.cursor}}; opacity: {{v.opacity}}; border: 1px solid {{v.border}}; background: {{v.bg}}; color: {{v.color}}; font-weight: {{v.weight}}; padding-bottom: 8px; padding-top: 8px">{{v.label}}</button>
 </sc-for>
 </div>
 </aside>
@@ -462,7 +467,7 @@ Hold expires Thu 18:00 · 2d 9h</span>
 
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"startScreen":{"editor":"enum","options":["brief","detail"],"default":"brief","section":"Prototype"},"$preview":{"width":2000,"height":1440}}'>
+<script type="text/x-dc" data-dc-script data-props="{&quot;startScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;brief&quot;,&quot;detail&quot;],&quot;default&quot;:&quot;brief&quot;,&quot;section&quot;:&quot;Prototype&quot;},&quot;$preview&quot;:{&quot;width&quot;:2000,&quot;height&quot;:1440}}">
 class Component extends DCLogic {
 componentWillUnmount() { if (this._t) clearTimeout(this._t); }
 showToast(text, undo) {
@@ -480,8 +485,36 @@ renderVals() {
   const isBrief = screen === 'brief';
   const picked = st.picked || 'B';
   const anniv = !!st.anniversary;
-  const vis = st.vis || 'surprise';
+  const selVis = st.vis || 'surprise';
+  const vis = (st.anniversary && st.annivVis) ? st.annivVis : selVis;
   const okDone = !!st.okaforDone;
+  const hhmm = () => { const d = new Date(); return String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0'); };
+  const dayLabel = () => { const d = new Date(); return ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][d.getDay()] + ' ' + d.getDate() + ' ' + ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][d.getMonth()]; };
+  const logAdd = (id) => (st.youLog || []).filter((e) => e.id !== id).concat({ id: id, t: hhmm(), d: dayLabel(), by: 'John' });
+  const logDel = (id) => (st.youLog || []).filter((e) => e.id !== id);
+  const G = { bg: '#EEF7F2', bd: '#2E9A63', fg: '#145A3C' };
+  const B = { bg: '#EAF1FB', bd: '#8FB3E8', fg: '#1F4E8C' };
+  const YOU = {
+    okafor: { title: 'Room change approved', guest: 'Ms Okafor · Arrives today 13:00', badge: 'Moved to room 0809', c: G },
+    anniv: { title: 'Wedding anniversary added', guest: 'Mr & Mrs Laurent · Suite 1204', badge: vis === 'surprise' ? 'Added · staff only' : 'Added · can be mentioned', c: B },
+    request: { title: 'Request sent to the cruise supplier', guest: 'Mr & Mrs Laurent · Suite 1204', badge: 'Sent by email', c: G },
+    msg: { title: 'Cruise options sent to guests', guest: 'Mr & Mrs Laurent · Suite 1204', badge: 'Sent via WhatsApp', c: G },
+    bianchi: { title: 'Allergy question sent', guest: 'Mr Bianchi · Suite 1511', badge: 'Sent via WhatsApp', c: G }
+  };
+  const youLog = st.youLog || [];
+  const youItems = youLog.slice().reverse().map((e) => ({ title: YOU[e.id].title, guest: YOU[e.id].guest, when: 'By ' + (e.by || 'John') + ' · ' + (e.d || 'Today') + ', ' + e.t, badge: YOU[e.id].badge, bg: YOU[e.id].c.bg, bd: YOU[e.id].c.bd, fg: YOU[e.id].c.fg }));
+  const f = (st.filter === 'you' && youItems.length === 0) ? null : (st.filter || null);
+  const pillProps = {};
+  [['Act', 'act'], ['Today', 'today'], ['Wait', 'waiting'], ['Over', 'overnight'], ['You', 'you']].forEach((pr) => {
+    const k = pr[0], id = pr[1], on = f === id;
+    pillProps['p' + k + 'Checked'] = on;
+    pillProps['p' + k + 'Bg'] = on ? '#BB964C' : '#FFFFFF';
+    pillProps['p' + k + 'Border'] = on ? '#BB964C' : '#DDE1E8';
+    pillProps['p' + k + 'Color'] = on ? '#FFFFFF' : '#4A5262';
+    pillProps['p' + k + 'Weight'] = on ? 600 : 400;
+    pillProps['pick' + k] = () => { this._holdBar = Date.now() + 600; this.setState({ filter: on ? null : id, barShown: true }); };
+  });
+  pillProps.pActShadow = f === 'act' ? '0 0 0 2px #FFFFFF, 0 0 0 4px #1B2334' : '0 4px 12px rgba(220, 75, 71, 0.35)';
   const ctxText = st.ctxText || '';
   const barText = st.barText || '';
   const prevent = (e) => { if (e && e.preventDefault) e.preventDefault(); };
@@ -496,8 +529,8 @@ renderVals() {
   const defaultRequest = 'Hello,\n\nWe have guests, Mr and Mrs Laurent, who may join your ' + cruiseKind + ' sunset cruise this Sunday, 8 November. It is their 10th wedding anniversary. If they confirm, would you be able to offer a small touch on board, at your discretion, such as a handwritten card or a glass of champagne?\n\n' + (vis === 'surprise' ? 'Please keep it as a surprise: the guests do not know we are aware of the occasion. ' : 'The guests are happy for the occasion to be mentioned. ') + 'We will confirm their booking by Thursday at 18:00.\n\nIf there is room, a discount on the cruise would also work in your favour: it turns the occasion into a memorable experience that the guests will associate with your company, and it strengthens our partnership, with more guests sent your way in future.\n\nThank you,\nGuest Relations';
 
   const base = [
-    { id: 'A', name: 'Shared sunset cruise', price: '€700', pro: 'Within their usual budget', con: 'Shared with other guests', meta: 'No hold - subject to availability', photo: '1c15ef9ede6ec6c61ad5e75ff0b6e524.jpg', alt: 'Guests on the deck of a shared wooden boat at sunset', isPick: false },
-    { id: 'B', name: 'Private sunset cruise', price: '€1,400', pro: 'Private, they asked', con: '€400 above their usual boat budget', meta: 'On hold until Thu 18:00', photo: 'b04b38f9152544600cc2986bc242c3db.jpg', alt: 'A couple on the deck of a private yacht at sunset', isPick: true }
+    { id: 'A', name: 'Shared sunset cruise', price: '€700', pro: 'Within their usual budget', con: 'Shared with other guests', meta: 'No hold - subject to availability', photo: './1c15ef9ede6ec6c61ad5e75ff0b6e524.jpg', alt: 'Guests on the deck of a shared wooden boat at sunset', isPick: false },
+    { id: 'B', name: 'Private sunset cruise', price: '€1,400', pro: 'Private, they asked', con: '€400 above their usual boat budget', meta: 'On hold until Thu 18:00', photo: './b04b38f9152544600cc2986bc242c3db.jpg', alt: 'A couple on the deck of a private yacht at sunset', isPick: true }
   ];
   const options = base.map((o) => {
     const on = o.id === picked;
@@ -524,21 +557,23 @@ renderVals() {
     { id: 'surprise', label: 'Keep as a surprise' },
     { id: 'mention', label: 'Can mention to guests' }
   ].map((v) => {
-    const on = v.id === vis;
+    const on = v.id === selVis;
     return Object.assign({}, v, {
       checked: on ? 'true' : 'false',
       border: on ? '#C4A05A' : '#DDE1E8',
       bg: on ? '#C4A05A' : '#FFFFFF',
       color: on ? '#FFFFFF' : '#2A3242',
       weight: on ? 700 : 400,
-      pick: () => this.setState({ vis: v.id })
+      pick: () => this.setState({ vis: v.id }),
+      cursor: 'pointer',
+      opacity: 1
     });
   });
 
   const sendCtx = () => {
     if (!ctxText.trim()) return;
     clearTimeout(this._think1); clearTimeout(this._think2);
-    this.setState({ anniversary: true, ctxText: '', ctxFocus: false, dismissed: false, thinking: 1 });
+    this.setState({ anniversary: true, annivVis: selVis, ctxText: '', ctxFocus: false, dismissed: false, thinking: 1, youLog: logAdd('anniv') });
     this._think1 = setTimeout(() => this.setState({ thinking: 2 }), 1400);
     this._think2 = setTimeout(() => this.setState({ thinking: 0 }), 2800);
   };
@@ -572,6 +607,13 @@ renderVals() {
     togglePa: () => this.setState({ paOpen: !st.paOpen }),
     togglePrefs: () => this.setState({ prefsOpen: !st.prefsOpen }),
     toggleAdded: () => this.setState({ addedOpen: !st.addedOpen }),
+    ...pillProps,
+    showActSec: !f || f === 'act',
+    showTodaySec: !f || f === 'today',
+    showWaitRow: !f || f === 'waiting',
+    showHandledRow: !f || f === 'overnight',
+    showYouRow: youItems.length > 0 && (!f || f === 'you'),
+    showYouPill: youItems.length > 0,
     barOpacity: st.barShown ? 1 : 0,
     barTransform: st.barShown ? 'translateY(0)' : 'translateY(12px)',
     barPointer: st.barShown ? 'auto' : 'none',
@@ -589,7 +631,7 @@ renderVals() {
     onTrack: 40 - needCount,
     needPhrase: needPhrase,
     todayCount: (okDone ? 0 : 1) + (bSent ? 0 : 1),
-    handledCount: okDone ? 49 : 48,
+    handledCount: 48,
     waitingCount: 6 + (reqSent ? 1 : 0) + (sent ? 1 : 0) + (bSent ? 1 : 0),
     showBianchiItem: bSent,
     bianchiPending: !bSent,
@@ -600,23 +642,23 @@ renderVals() {
     onBianchiChange: (e) => this.setState({ bianchiText: e.target.value }),
     openBianchi: () => this.setState({ bianchiOpen: true, bianchiText: bianchiDefault }),
     sendBianchi: () => {
-      this.setState({ bianchiOpen: false, bianchiSent: true });
+      this.setState({ bianchiOpen: false, bianchiSent: true, youLog: logAdd('bianchi') });
       this.showToast('Message sent to Mr Bianchi via WhatsApp', false);
     },
     showSunsetItem: reqSent,
     showChoiceItem: sent,
-    showGestureDone: okDone,
+    showGestureDone: false,
     actOpen: !sent,
     actClear: sent,
     actLabelColor: sent ? '#4A5262' : '#DC3F3B',
     showOkafor: !okDone,
     approveOkafor: () => {
-      this.setState({ okaforDone: true });
+      this.setState({ okaforDone: true, youLog: logAdd('okafor') });
       this.showToast('Ms Okafor moved to room 0809 · housekeeping notified', true);
     },
     undoOkafor: () => {
       if (this._t) clearTimeout(this._t);
-      this.setState({ okaforDone: false, toast: null });
+      this.setState({ okaforDone: false, toast: null, youLog: logDel('okafor') });
     },
     toast: !!st.toast,
     toastText: st.toast ? st.toast.text : '',
@@ -651,7 +693,7 @@ renderVals() {
     waitOperator: opName.toLowerCase(),
     gestureWord: vis === 'surprise' ? 'a surprise anniversary gesture' : 'an anniversary gesture',
     sendAnyway: () => {
-      this.setState({ waitOpen: false, msgSent: true });
+      this.setState({ waitOpen: false, msgSent: true, youLog: logAdd('msg') });
       this.showToast('Message sent to Mr & Mrs Laurent via WhatsApp', false);
     },
     openConfirm: () => this.setState(reqSent ? { waitOpen: true } : { confirmOpen: true }),
@@ -661,7 +703,7 @@ renderVals() {
     leadSummary: picked === 'B' ? 'Private sunset cruise · €1,400 · on hold until Thu 18:00' : 'Shared sunset cruise · €700 · no hold, subject to availability',
     annivSummary: mention ? 'Mentioned in the message' : 'Not mentioned · staff only',
     sendMessage: () => {
-      this.setState({ confirmOpen: false, msgSent: true });
+      this.setState({ confirmOpen: false, msgSent: true, youLog: logAdd('msg') });
       this.showToast('Message sent to Mr & Mrs Laurent via WhatsApp', false);
     },
     requestPending: !reqSent,
@@ -674,14 +716,14 @@ renderVals() {
     requestModalTitle: vis === 'surprise' ? 'Ask the operator for a surprise gesture' : 'Ask the operator for an anniversary gesture',
     requestVisNote: vis === 'surprise' ? 'Kept as a surprise. The operator is asked not to mention it to them.' : 'They can know about it.',
     sendRequest: () => {
-      this.setState({ requestOpen: false, requestSent: true });
+      this.setState({ requestOpen: false, requestSent: true, youLog: logAdd('request') });
       this.showToast('Request sent to the ' + opName.toLowerCase(), false);
     },
     draft: draft,
     anniversary: anniv,
     annivChip: vis === 'surprise' ? 'Anniversary Surprise' : 'Anniversary',
     annivDraftChip: mention ? 'Anniversary mentioned' : 'Anniversary not mentioned',
-    addedNote: vis === 'surprise' ? 'Today 09:12 · staff only, never shown to guests' : 'Today 09:12 · can be mentioned to guests',
+    addedNote: 'By ' + ((youLog.find((e) => e.id === 'anniv') || {}).by || 'John') + ' · ' + (function () { const e = youLog.find((x) => x.id === 'anniv'); return e ? e.d + ', ' + e.t : 'Today 09:12'; })() + (vis === 'surprise' ? ' · only staff can view' : ' · can be mentioned to guests'),
     showSuggestion: anniv && !st.dismissed && !st.thinking,
     showThinking: anniv && !!st.thinking,
     thinkingText: st.thinking === 2 ? 'Checking what the cruise supplier could offer…' : 'Aurelia is thinking about the anniversary…',
@@ -701,8 +743,18 @@ renderVals() {
       this.setState(open ? { handledExpanded: true } : { handledExpanded: false, barShown: true });
       if (open) setTimeout(() => { const el = document.getElementById('handled-list'); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 80);
     },
-    waitExpanded: !!st.waitExpanded,
-    handledExpanded: !!st.handledExpanded,
+    showYou: youItems.length > 0,
+    youCount: youItems.length,
+    youItems: youItems,
+    youExpanded: !!st.youExpanded || f === 'you',
+    toggleYou: () => {
+      const open = !st.youExpanded;
+      if (!open) this._holdBar = Date.now() + 600;
+      this.setState(open ? { youExpanded: true } : { youExpanded: false, barShown: true });
+      if (open) setTimeout(() => { const el = document.getElementById('you-list'); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 80);
+    },
+    waitExpanded: !!st.waitExpanded || f === 'waiting',
+    handledExpanded: !!st.handledExpanded || f === 'overnight',
     prefs: prefs,
     visibility: visibility,
 
